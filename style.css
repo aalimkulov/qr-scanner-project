@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  text-align: center;
+}
+
+#drop-area {
+  border: 2px dashed #999;
+  padding: 20px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+#drop-area.dragover {
+  border-color: #333;
+  background: #f0f0f0;
+}
+
+.controls {
+  margin: 20px 0;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+}
