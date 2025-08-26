@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Scanner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>QR Scanner</h1>
+
+  <div id="drop-area">Перетащи изображение сюда или нажми для выбора файла</div>
+  <input type="file" id="file-input" accept="image/*" hidden />
+
+  <div class="controls">
+    <button id="paste-btn">Вставить из буфера</button>
+    <input type="text" id="url-input" placeholder="Вставь ссылку на изображение" />
+    <button id="url-btn">Загрузить с ссылки</button>
+  </div>
+
+  <div id="result">Результат: <span id="qr-result">—</span></div>
+
+  <script src="libs/qr-scanner.min.js"></script>
+  <script src="libs/sound.js"></script>
+  <script src="components/uploader.js"></script>
+  <script src="components/scanner.js"></script>
+  <script src="components/ui.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
