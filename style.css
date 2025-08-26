@@ -1,26 +1,102 @@
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  text-align: center;
+:root{
+  --bg:#fafafa;
+  --accent:#2b7cff;
+  --muted:#777;
+  --card:#fff;
+  --danger:#e74c3c;
 }
 
-#drop-area {
-  border: 2px dashed #999;
-  padding: 20px;
-  margin: 20px 0;
-  cursor: pointer;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#111;
+  padding:18px;
+}
+header{ text-align:center; margin-bottom:14px;}
+.subtitle{ color:var(--muted); margin-top:4px; font-size:0.95rem;}
+
+main{ display:flex; gap:18px; align-items:flex-start; max-width:1200px; margin:0 auto;}
+.left-column{ flex:1; }
+.right-column{ width:380px; }
+
+.drop-area{
+  background:var(--card);
+  border:2px dashed #d0d6df;
+  padding:26px;
+  border-radius:12px;
+  min-height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .22s ease;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(14,30,37,0.06);
+}
+.drop-area.dragover{
+  border-color:var(--accent);
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:0 14px 30px rgba(43,124,255,0.06);
+}
+.drop-inner{ text-align:center; }
+.drop-actions{ margin-top:10px; display:flex; gap:8px; justify-content:center;}
+.drop-actions button{ padding:8px 10px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+.drop-actions button:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.06); }
+
+.url-import{ margin-top:12px; display:flex; gap:8px; }
+.url-import input{ flex:1; padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff;}
+.url-import button{ padding:10px 12px; border-radius:8px; border:none; background:var(--accent); color:#fff; cursor:pointer;}
+
+.cloud-imports{ margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;}
+.cloud-btn{ padding:8px 10px; border-radius:8px; border:1px solid #ddd; background:#fff; cursor:pointer;}
+
+.preview-list{ margin-top:16px; display:grid; grid-template-columns: repeat(auto-fill,minmax(120px,1fr)); gap:10px;}
+.preview-item{
+  background:#fff; border-radius:8px; padding:8px; display:flex; flex-direction:column; gap:6px; align-items:center;
+  box-shadow:0 6px 14px rgba(12,20,24,0.04);
+  position:relative;
+  overflow:hidden;
+}
+.preview-item img{ width:100%; height:100px; object-fit:cover; border-radius:6px; }
+.preview-item .caption{ font-size:12px; color:var(--muted); text-align:center; }
+
+.result-card, .scanner-card{ background:var(--card); border-radius:10px; padding:12px; margin-bottom:12px; box-shadow:0 6px 18px rgba(14,30,37,0.05);}
+
+.scanner-card h2{ margin:0 0 8px 0; font-size:1.1rem;}
+.result-area{ min-height:140px; display:flex; flex-direction:column; gap:10px; align-items:flex-start; justify-content:center; padding:10px; border-radius:8px; background:linear-gradient(180deg,#fff,#fbfdff); width:100%; }
+.qr-result{ font-weight:700; font-size:1rem; word-break:break-all; color:#123; }
+.result-meta{ font-size:13px; color:var(--muted); }
+
+.stats-card{ margin-top:14px; padding:12px; border-radius:10px; background:var(--card); box-shadow:0 6px 18px rgba(14,30,37,0.05);}
+.stats-card h3{ margin:0 0 8px 0; }
+.stats-card ul{ padding-left:14px; margin:0 0 8px 0; color:var(--muted); }
+.progress-wrap{ margin-top:8px; }
+.progress-bar{ height:12px; width:100%; background:#eee; border-radius:8px; overflow:hidden; }
+.progress-fill{ height:100%; width:0%; transition:width .35s ease; background:linear-gradient(90deg,var(--accent),#6bd1ff); }
+
+.footer{ margin-top:18px; font-size:12px; color:var(--muted); text-align:center; }
+
+/* fly-to-center animation (for paste) */
+.flying-thumb{
+  position:fixed;
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:8px;
+  box-shadow:0 12px 26px rgba(0,0,0,0.18);
+  z-index:9999;
+  transition: transform 560ms cubic-bezier(.2,.9,.2,1), opacity 360ms ease;
+  will-change:transform, opacity;
+}
+.flying-thumb.to-center{
+  transform: translate(calc(50vw - 60px - var(--x)), calc(50vh - 60px - var(--y))) scale(0.65);
+  opacity:0.98;
 }
 
-#drop-area.dragover {
-  border-color: #333;
-  background: #f0f0f0;
-}
-
-.controls {
-  margin: 20px 0;
-}
-
-#result {
-  margin-top: 20px;
-  font-size: 18px;
+/* small responsiveness */
+@media (max-width:900px){
+  main{ flex-direction:column; }
+  .right-column{ width:100%; }
 }
