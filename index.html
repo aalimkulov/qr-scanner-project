@@ -1,30 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR Scanner</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QR Scanner — Raw Project</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>QR Scanner</h1>
+  <header>
+    <h1>QR Scanner — Raw Project</h1>
+    <p class="subtitle">Drag & Drop, Clipboard, URL, Google Drive, Dropbox, OneDrive и многое другое</p>
+  </header>
 
-  <div id="drop-area">Перетащи изображение сюда или нажми для выбора файла</div>
-  <input type="file" id="file-input" accept="image/*" hidden />
+  <main>
+    <section class="left-column">
+      <div id="drop-area" class="drop-area" tabindex="0">
+        <div class="drop-inner">
+          <div id="drop-hint">Перетащи изображение сюда</div>
+          <div class="drop-actions">
+            <button id="choose-file">Выбрать файл</button>
+            <button id="paste-btn">Вставить из буфера</button>
+            <button id="clear-history">Очистить историю</button>
+          </div>
+        </div>
+      </div>
 
-  <div class="controls">
-    <button id="paste-btn">Вставить из буфера</button>
-    <input type="text" id="url-input" placeholder="Вставь ссылку на изображение" />
-    <button id="url-btn">Загрузить с ссылки</button>
-  </div>
+      <div class="url-import">
+        <input id="url-input" type="text" placeholder="Вставь ссылку (изображение | Google Drive | Dropbox | OneDrive)" />
+        <button id="url-btn">Загрузить</button>
+      </div>
 
-  <div id="result">Результат: <span id="qr-result">—</span></div>
+      <div class="cloud-imports">
+        <button class="cloud-btn" data-service="gdrive">Импорт из Google Drive (share link)</button>
+        <button class="cloud-btn" data-service="dropbox">Импорт из Dropbox (share link)</button>
+        <button class="cloud-btn" data-service="onedrive">Импорт из OneDrive (share link)</button>
+      </div>
 
+      <div id="preview-list" class="preview-list"></div>
+    </section>
+
+    <section class="right-column">
+      <div class="scanner-card">
+        <h2>Результат сканирования</h2>
+        <div id="result-area" class="result-area">
+          <div id="qr-result" class="qr-result">—</div>
+          <div id="result-meta" class="result-meta">Ожидание...</div>
+        </div>
+        <div class="sound-toggle">
+          <label><input type="checkbox" id="sound-enabled" checked /> Звук при успешном сканировании</label>
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <h3>Статистика</h3>
+        <ul id="stats-list">
+          <li>Импортов: <span id="stat-imports">0</span></li>
+          <li>Успешных сканов: <span id="stat-success">0</span></li>
+          <li>Неудачных: <span id="stat-fail">0</span></li>
+          <li>Среднее время скана (мс): <span id="stat-avg">0</span></li>
+        </ul>
+        <div class="progress-wrap">
+          <div id="progress-bar" class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Raw project — пока без backend. Для GDrive/Dropbox/OneDrive используются преобразования share-ссылок в прямые загрузки (если это возможно).</small>
+  </footer>
+
+  <!-- Libs -->
   <script src="libs/qr-scanner.min.js"></script>
   <script src="libs/sound.js"></script>
+
+  <!-- Components -->
   <script src="components/uploader.js"></script>
   <script src="components/scanner.js"></script>
   <script src="components/ui.js"></script>
+
+  <!-- Main -->
   <script src="script.js"></script>
 </body>
 </html>
